@@ -1,0 +1,17 @@
+{
+  "name": "maria-gear-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Maria Gear's portfolio: plain HTML and CSS, light and dark mode.",
+  "scripts": {
+    "start": "http-server . -p 4174 -c-1",
+    "test": "playwright test"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
+    "http-server": "^14.1.1"
+  }
+}

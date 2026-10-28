@@ -1,0 +1,330 @@
+/* Maria Gear's portfolio. Colours are tokens so light and dark mode only
+   change the values, never the rules. */
+:root,
+:root[data-theme="light"] {
+  --bg: #fffaf0;
+  --surface: #ffffff;
+  --text: #2b2118;
+  --muted: #5e5143;
+  --accent: #8f5300;
+  --accent-soft: #fbe9c6;
+  --border: #e6d9c3;
+  --focus: #1a5fb4;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #14110d;
+  --surface: #1e1a14;
+  --text: #f3ebdd;
+  --muted: #c9bba5;
+  --accent: #f2b84b;
+  --accent-soft: #3a2d12;
+  --border: #3a3226;
+  --focus: #8ab4ff;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  z-index: 10;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+}
+
+.site-header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  display: inline-block;
+  border-bottom: 3px solid transparent;
+}
+.site-header nav a:hover {
+  border-bottom-color: var(--border);
+}
+.site-header nav a[aria-current="page"] {
+  border-bottom-color: var(--accent);
+}
+
+.theme-toggle {
+  font: inherit;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  min-height: 44px;
+  padding: 0.35rem 1rem;
+  cursor: pointer;
+}
+.theme-toggle[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1rem 1rem 4rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.15;
+  margin: 1.5rem 0 1rem;
+}
+h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.25rem;
+}
+h3 {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: var(--muted);
+  max-width: 36rem;
+}
+
+.mark {
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-top: 1.5rem;
+  color: var(--accent);
+}
+
+.tagline {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 2rem 0 0;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+.highlights li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+}
+.highlights strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.highlights span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.photo {
+  margin: 1.5rem 0;
+}
+.photo img {
+  display: block;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+.photo figcaption {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  min-height: 44px;
+}
+.button svg {
+  width: 1.15em;
+  height: 1.15em;
+  fill: currentColor;
+  vertical-align: -0.2em;
+  margin-right: 0.5rem;
+}
+.button.primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+article {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+article .role,
+article .note {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+}
+article .note {
+  margin: 1rem 0 0;
+  font-style: italic;
+}
+.status {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+article ul.points {
+  padding-left: 1.2rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+.tags li {
+  font-size: 0.85rem;
+  padding: 0.15rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.shots img {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.stack-group {
+  margin: 1.5rem 0;
+}
+.stack-group h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.stack-group .tags {
+  margin-top: 0;
+}
+
+footer {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  article,
+  .theme-toggle {
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+}

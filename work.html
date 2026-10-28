@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maria Gear | Work</title>
+  <meta name="description" content="Projects by Maria Gear: BeeYardLog, a client placement at PolicyCheck, and bootcamp team projects.">
+  <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html" aria-current="page">Work</a></li>
+        <li><a href="stack.html">Stack</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" aria-pressed="false">Dark mode</button>
+  </header>
+
+  <main id="main">
+    <h1>Work</h1>
+    <p class="lead">What I've built and shipped, newest first.</p>
+
+    <article>
+      <h2>BeeYardLog</h2>
+      <p class="role">Solo project, 2026 <span class="status">Live, in field use</span></p>
+      <p>A free, offline hive inspection logbook, built because I kept running out of signal and wrestling with messy paper notes. It works with no signal and no account, and the records stay on the phone.</p>
+      <ul class="points">
+        <li>Mite check, draft saving, search, and Excel and backup export.</li>
+        <li>Tested on real iPhones and Android phones, including use in airplane mode.</li>
+        <li>179 unit and 99 end-to-end tests, run on every push in CI.</li>
+      </ul>
+      <ul class="shots">
+        <li><img src="images/form.png" width="200" height="433" loading="lazy" alt="The BeeYardLog inspection form on a phone, with Yard number and Hive ID fields above the Weather and Condition cards"></li>
+        <li><img src="images/mite.png" width="200" height="433" loading="lazy" alt="The mite check card showing 3 mites per 100 bees with a red note to consider treating"></li>
+        <li><img src="images/log.png" width="200" height="433" loading="lazy" alt="The inspection log, newest first, with a search box and a mite result on each row"></li>
+      </ul>
+      <ul class="tags">
+        <li>React</li><li>Vite</li><li>IndexedDB</li><li>Service worker</li><li>Vitest</li><li>Playwright</li><li>GitHub Actions</li>
+      </ul>
+      <ul class="links">
+        <li><a href="https://github.com/mg20765/beeyardlog" target="_blank" rel="noopener noreferrer">Source on GitHub</a></li>
+        <li><a href="https://hive-logbook-maria.surge.sh" target="_blank" rel="noopener noreferrer">Try the live app</a></li>
+      </ul>
+    </article>
+
+    <article>
+      <h2>PolicyCheck</h2>
+      <p class="role">10-week client placement, 2026 <span class="status">Completed</span></p>
+      <p>Shipped features and dark mode in a production React/TypeScript codebase for an AI-native insurance broker.</p>
+      <ul class="points">
+        <li>Bug fixing and performance auditing, measured before and after.</li>
+        <li>Part of the team that shipped dark mode; I built two CI checks that stop pull requests from breaking it and took on its contrast fixes.</li>
+        <li>Grew the client test suite from 314 to 753 tests.</li>
+      </ul>
+      <ul class="tags">
+        <li>React</li><li>TypeScript</li><li>Playwright</li><li>Vitest</li><li>CI</li>
+      </ul>
+      <p class="note">Private company repo.</p>
+    </article>
+
+    <article>
+      <h2>Bootcamp team projects</h2>
+      <p class="role">Mission Ready, 2026 <span class="status">Completed</span></p>
+      <ul class="points">
+        <li><strong>TradeMe Showcase:</strong> a full-stack marketplace app built as a team. I built the Category page and Watchlist feature, led the proof of concept and README, and refactored the backend into a clean MVC structure.</li>
+        <li><strong>Turners Cars insurance chatbot:</strong> an AI-powered assistant (Google Gemini) that recommends a policy and emails a summary. Each team member built their own version; I built the chat popup UI and styling.</li>
+      </ul>
+      <ul class="tags">
+        <li>React</li><li>Node.js</li><li>Express</li><li>MongoDB</li><li>Git</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>&copy; 2026 Maria Gear</footer>
+</body>
+</html>
