@@ -193,6 +193,30 @@ test.describe("Work page", () => {
     }
   });
 
+  test("TradeMe says the tests were added later, and names the tools", async ({ page }) => {
+    await page.goto("/work.html");
+    const bootcamp = page.locator("article", { has: page.getByRole("heading", { name: "Bootcamp team projects" }) });
+    const trademe = bootcamp.locator("li", { has: page.locator("strong", { hasText: "TradeMe Showcase" }) });
+    await expect(trademe).toContainText(/Later I added 48 unit and component tests/);
+    await expect(trademe).toContainText(/found and fixed real bugs/);
+    await expect(bootcamp.locator(".tags")).toContainText("Vitest");
+    await expect(bootcamp.locator(".tags")).toContainText("React Testing Library");
+  });
+
+  test("the chatbot entry makes no claim about tests", async ({ page }) => {
+    await page.goto("/work.html");
+    const chatbot = page.locator("li", { has: page.locator("strong", { hasText: "Turners Cars" }) });
+    await expect(chatbot).not.toContainText(/test/i);
+  });
+
+  test("the TradeMe source link points at Maria's own repo and opens safely", async ({ page }) => {
+    await page.goto("/work.html");
+    const bootcamp = page.locator("article", { has: page.getByRole("heading", { name: "Bootcamp team projects" }) });
+    const link = bootcamp.getByRole("link", { name: /TradeMe.*source/i });
+    await expect(link).toHaveAttribute("href", "https://github.com/mg20765/trademe-showcase");
+    await expect(link).toHaveAttribute("rel", /noopener/);
+  });
+
   test("describes the chatbot work as the popup UI, not the AI", async ({ page }) => {
     await page.goto("/work.html");
     await expect(page.locator("main")).toContainText(/chat popup/i);
