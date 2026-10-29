@@ -66,6 +66,36 @@ for (const { path, name } of PAGES) {
   });
 }
 
+test.describe("share cards (LinkedIn, messages)", () => {
+  const SITE = "https://mg20765.github.io";
+  for (const { path, name } of PAGES) {
+    test(`${name} page has the tags that make a good preview`, async ({ page }) => {
+      await page.goto(path);
+      const meta = (prop) =>
+        page.locator(`meta[property="${prop}"], meta[name="${prop}"]`).first().getAttribute("content");
+      expect(await meta("og:type")).toBe("website");
+      expect(await meta("og:site_name")).toBe("Maria Gear");
+      expect(await meta("og:title")).toMatch(/Maria Gear/);
+      expect((await meta("og:description")).length).toBeGreaterThan(40);
+      expect(await meta("og:url")).toBe(`${SITE}/${path.replace("/", "")}`);
+      expect(await meta("og:image")).toBe(`${SITE}/images/social-card.png`);
+      expect(await meta("og:image:alt")).toMatch(/.{30,}/);
+      expect(await meta("og:image:width")).toBe("1200");
+      expect(await meta("og:image:height")).toBe("630");
+      expect(await meta("twitter:card")).toBe("summary_large_image");
+    });
+  }
+
+  test("the share picture exists, is 1200 by 630 and is under 400 KB", async ({ request }) => {
+    const res = await request.get("/images/social-card.png");
+    expect(res.status()).toBe(200);
+    const body = await res.body();
+    expect(body.length).toBeLessThan(400 * 1024);
+    expect(body.readUInt32BE(16)).toBe(1200);
+    expect(body.readUInt32BE(20)).toBe(630);
+  });
+});
+
 test.describe("light and dark mode", () => {
   test("follows the visitor's device setting at first", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "dark" });
