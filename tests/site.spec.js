@@ -203,10 +203,11 @@ test.describe("Work page", () => {
     await expect(bootcamp.locator(".tags")).toContainText("React Testing Library");
   });
 
-  test("the chatbot entry makes no claim about tests", async ({ page }) => {
+  test("the chatbot entry says the 22 tests were written during the project, not added later", async ({ page }) => {
     await page.goto("/work.html");
     const chatbot = page.locator("li", { has: page.locator("strong", { hasText: "Turners Cars" }) });
-    await expect(chatbot).not.toContainText(/test/i);
+    await expect(chatbot).toContainText(/I also wrote 22 Vitest tests \(20 frontend and 2 backend\)/);
+    await expect(chatbot).not.toContainText(/later/i);
   });
 
   test("the TradeMe source link points at Maria's own repo and opens safely", async ({ page }) => {
