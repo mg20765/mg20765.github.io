@@ -265,6 +265,39 @@ test.describe("Home page", () => {
     await expect(mark).toHaveAttribute("focusable", "false");
   });
 
+  for (const theme of ["light", "dark"]) {
+    test(`the leaf in the mark is green and easy to see in ${theme} mode`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: theme });
+      await page.goto("/index.html");
+      const { fill, background } = await page.evaluate(() => ({
+        fill: getComputedStyle(document.querySelector("svg.mark .leaf")).fill,
+        background: getComputedStyle(document.body).backgroundColor,
+      }));
+      const rgb = (s) => s.match(/\d+(\.\d+)?/g).slice(0, 3).map(Number);
+      const [r, g, b] = rgb(fill);
+      expect(g, `leaf ${fill} should be green`).toBeGreaterThan(r + 20);
+      expect(g, `leaf ${fill} should be green`).toBeGreaterThan(b + 20);
+      const lum = (c) => {
+        const [R, G, B] = c.map((v) => {
+          const s = v / 255;
+          return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+      };
+      const [l1, l2] = [lum(rgb(fill)), lum(rgb(background))].sort((a, b) => b - a);
+      expect((l1 + 0.05) / (l2 + 0.05), "contrast of the leaf against the page").toBeGreaterThanOrEqual(3);
+    });
+  }
+
+  test("the hexagon stays honey-coloured while only the leaf turns green", async ({ page }) => {
+    await page.goto("/index.html");
+    const [hex, leaf] = await page.evaluate(() => [
+      getComputedStyle(document.querySelector("svg.mark polygon")).stroke,
+      getComputedStyle(document.querySelector("svg.mark .leaf")).fill,
+    ]);
+    expect(hex).not.toBe(leaf);
+  });
+
   test("opens with the offline line, and puts the testing line above the highlights", async ({ page }) => {
     await page.goto("/index.html");
     await expect(page.locator("p.lead")).toContainText("keep working when the signal doesn't");

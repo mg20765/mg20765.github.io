@@ -8,6 +8,7 @@
   --muted: #5e5143;
   --accent: #8f5300;
   --accent-soft: #fbe9c6;
+  --leaf: #3b7d2c;
   --border: #e6d9c3;
   --focus: #1a5fb4;
   color-scheme: light;
@@ -20,6 +21,7 @@
   --muted: #c9bba5;
   --accent: #f2b84b;
   --accent-soft: #3a2d12;
+  --leaf: #7cc46a;
   --border: #3a3226;
   --focus: #8ab4ff;
   color-scheme: dark;
@@ -148,6 +150,11 @@ h3 {
   height: 56px;
   margin-top: 1.5rem;
   color: var(--accent);
+}
+
+/* The hexagon stays honey-coloured; only the leaf is green. */
+.mark .leaf {
+  fill: var(--leaf);
 }
 
 .tagline {
