@@ -300,13 +300,24 @@ test.describe("Home page", () => {
 
   test("opens with the offline line, and puts the testing line above the highlights", async ({ page }) => {
     await page.goto("/index.html");
-    await expect(page.locator("p.lead")).toContainText("keep working when the signal doesn't");
+    await expect(page.locator("p.lead")).toContainText("my latest app keeps working when the signal doesn't");
     await expect(page.locator("p.lead")).not.toContainText("where real life does");
+    // Only one app works offline so far, so the page must not say "apps".
+    await expect(page.locator("p.lead")).not.toContainText("I build apps");
     const tagline = page.locator("p.tagline");
     await expect(tagline).toHaveText("I find what breaks before your users do.");
     const taglineBox = await tagline.boundingBox();
     const highlightsBox = await page.locator("ul.highlights").boundingBox();
     expect(taglineBox.y).toBeLessThan(highlightsBox.y);
+  });
+
+  test("the search and share descriptions say 'my latest app', not 'apps'", async ({ page }) => {
+    await page.goto("/index.html");
+    for (const sel of ['meta[name="description"]', 'meta[property="og:description"]']) {
+      const text = await page.locator(sel).getAttribute("content");
+      expect(text, sel).toMatch(/My latest app keeps working when the signal doesn't/);
+      expect(text, sel).not.toMatch(/builds apps/i);
+    }
   });
 
   test("shows three highlights, each with a bold point and a short line", async ({ page }) => {
