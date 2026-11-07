@@ -178,7 +178,7 @@ test.describe("Work page", () => {
     );
     await expect(bee.getByRole("link", { name: /live app/i })).toHaveAttribute(
       "href",
-      "https://hive-logbook-maria.surge.sh",
+      "https://beeyardlog.surge.sh",
     );
     const pc = page.locator("article", { has: page.getByRole("heading", { name: "PolicyCheck" }) });
     await expect(pc.locator("a")).toHaveCount(0);
@@ -203,11 +203,20 @@ test.describe("Work page", () => {
     await expect(bootcamp.locator(".tags")).toContainText("React Testing Library");
   });
 
-  test("the chatbot entry says the 22 tests were written during the project, not added later", async ({ page }) => {
+  test("the chatbot entry describes its tests accurately and does not overclaim", async ({ page }) => {
     await page.goto("/work.html");
     const chatbot = page.locator("li", { has: page.locator("strong", { hasText: "Turners Cars" }) });
-    await expect(chatbot).toContainText(/I also wrote 22 Vitest tests \(20 frontend and 2 backend\)/);
+    await expect(chatbot).toContainText(/Vitest tests for the recommendation parsing and email validation/);
+    await expect(chatbot).not.toContainText(/conversation history|summary endpoint|22/);
     await expect(chatbot).not.toContainText(/later/i);
+  });
+
+  test("BeeYardLog explains why it was built this way, and PolicyCheck gives a measured result", async ({ page }) => {
+    await page.goto("/work.html");
+    const bee = page.locator("article", { has: page.getByRole("heading", { name: "BeeYardLog" }) });
+    await expect(bee).toContainText(/IndexedDB instead of localStorage/);
+    const pc = page.locator("article", { has: page.getByRole("heading", { name: "PolicyCheck" }) });
+    await expect(pc).toContainText(/0\.69 to 0\.0052/);
   });
 
   test("the TradeMe source link points at Maria's own repo and opens safely", async ({ page }) => {
@@ -334,11 +343,11 @@ test.describe("Home page", () => {
     await page.goto("/index.html");
     const text = await page.locator("ul.highlights").innerText();
     expect(text).toMatch(/179/);
-    expect(text).toMatch(/99/);
+    expect(text).toMatch(/110/);
     expect(text).toMatch(/10-week/);
     await page.goto("/work.html");
     const work = await page.locator("main").innerText();
-    expect(work).toMatch(/179 unit and 99 end-to-end/);
+    expect(work).toMatch(/179 unit and 110 end-to-end/);
     expect(work).toMatch(/10-week/);
   });
 
