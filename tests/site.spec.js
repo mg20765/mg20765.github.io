@@ -342,12 +342,12 @@ test.describe("Home page", () => {
   test("the highlights only use figures that appear elsewhere on the site", async ({ page }) => {
     await page.goto("/index.html");
     const text = await page.locator("ul.highlights").innerText();
-    expect(text).toMatch(/179/);
+    expect(text).toMatch(/183/);
     expect(text).toMatch(/110/);
     expect(text).toMatch(/10-week/);
     await page.goto("/work.html");
     const work = await page.locator("main").innerText();
-    expect(work).toMatch(/179 unit and 110 end-to-end/);
+    expect(work).toMatch(/183 unit and 110 end-to-end/);
     expect(work).toMatch(/10-week/);
   });
 
