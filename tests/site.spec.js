@@ -389,11 +389,29 @@ test.describe("About page photo", () => {
 });
 
 test.describe("About page", () => {
-  test("mentions the bird field guide as work in progress", async ({ page }) => {
+  test("says there are always projects on the go, without naming them", async ({ page }) => {
     await page.goto("/about.html");
     const text = await page.locator("main").innerText();
-    expect(text).toMatch(/bird/i);
-    expect(text).toMatch(/in the making|working on/i);
+    expect(text).toMatch(/always working on/i);
+    // Ideas that are still private stay off the page until they are ready.
+    expect(text).not.toMatch(/bird|plant|field guide/i);
+  });
+
+  test("ends with the three things to remember and an invitation", async ({ page }) => {
+    await page.goto("/about.html");
+    const text = await page.locator("main").innerText();
+    expect(text).toMatch(/looking for my first role in software development/i);
+    expect(text).toMatch(/if you remember only three things about me/i);
+    expect(text).toMatch(/I find solutions/i);
+    expect(text).toMatch(/work well with a team and on my own/i);
+    expect(text).toMatch(/love a new challenge, and I ship it/i);
+    expect(text).toMatch(/roll up my sleeves/i);
+    expect(text).toMatch(/what have you got for me/i);
+  });
+
+  test("lists the three things as a list, so they are easy to read", async ({ page }) => {
+    await page.goto("/about.html");
+    await expect(page.locator("main ul.points li")).toHaveCount(3);
   });
 });
 
